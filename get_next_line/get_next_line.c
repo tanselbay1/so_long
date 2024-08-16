@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:07:44 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/04/17 09:42:53 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:12:31 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char	*set_line(char *line)
 		i++;
 	if (line[i] == 0)
 		return (0);
-	temp = ft_substr(line, i + 1, ft_strlen(line) - i);
+	temp = ft_substr1(line, i + 1, ft_strlen1(line) - i);
 	if (*temp == 0)
 	{
 		free(temp);
@@ -80,9 +80,9 @@ static char	*complete_line(int fd, char *temp, char *buffer)
 			break ;
 		buffer[b_read] = 0;
 		if (!temp)
-			temp = ft_strdup("");
+			temp = ft_strdup1("");
 		tmp = temp;
-		temp = ft_strjoin(tmp, buffer);
+		temp = ft_strjoin1(tmp, buffer);
 		free(tmp);
 		tmp = NULL;
 		if (ft_strchr(buffer, '\n'))

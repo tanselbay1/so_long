@@ -7,7 +7,7 @@ LIB = ranlib
 INC_DIR = .
 
 SRC = ft_printf.c
-SRC_LIB = $(addprefix libprintf/, ft_print_char.c ft_print_str.c ft_print_ptr.c ft_print_hex.c ft_print_int.c ft_print_uint.c)
+SRC_LIB = $(ft_print_char.c ft_print_str.c ft_print_ptr.c ft_print_hex.c ft_print_int.c ft_print_uint.c)
 
 OBJS = ${SRC:.c=.o}
 OBJS_LIB = ${SRC_LIB:.c=.o}
@@ -22,7 +22,7 @@ ${NAME}: ${OBJS} ${OBJS_LIB}
 # .c.o:
 # 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 %.o: %.c
-	$(CC) -I$(INC_DIR) $(CCFLAGS) -o $@ -c $<
+    $(CC) $(addprefix -I,$(INC_DIR)) $(CCFLAGS) -o $@ -c $<
 
 ######### Clean ########
 # Clean obj files (.o)
