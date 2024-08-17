@@ -6,74 +6,98 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:46:11 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/16 11:18:47 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/17 11:37:14 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include "../MLX42/include/MLX42/MLX42.h"
-#include "../MLX42/include/MLX42/MLX42_Int.h"
 #include "../headers/so_long.h"
-#define WIDTH 256
-#define HEIGHT 256
 
-// Exit the program as failure.
-void ft_error(char *str)
+void	ft_error(char *str)
 {
 	ft_putendl_fd(str, 1);
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
+	exit (0);
 }
 
-// Print the window width and height.
-static void ft_hook(void* param)
+int	iswall(t_tile *map, int x, int y)
 {
-	const mlx_t* mlx = param;
+	t_tile	*tile;
 
-	ft_printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+	tile = map;
+	if (!tile)
+		return (-1);
+	while (tile)
+	{
+		if (tile->x == x && tile->y == y)
+		{
+			if (tile->type == 1)
+				return (1);
+			else
+				return (0);
+		}
+		tile = tile->next;
+	}
+	return (0);
 }
 
-int32_t	main(void)
+static void	get_map_size(char **argv, t_game *game)
 {
+	char	*gnl;
+	int		len;
+	char	*whole_string;
+	int		src;
+	int		height;
 
-	// MLX allows you to define its core behaviour before startup.
-	mlx_set_setting(MLX_MAXIMIZED, true);
-	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "myBalls", true);
+	height = 0;
+	whole_string = "";
+	src = open(argv[1], O_RDONLY);
+	gnl = get_next_line(src);
+	if (!gnl)
+	{
+		free(gnl);
+		ft_error("Error\nCannot read the map");
+	}
+	len = ft_strlen(gnl);
+	game->width = len - 1;
+	while (gnl)
+	{
+		free(gnl);
+		gnl = get_next_line(src);
+		height++;
+	}
+	game->height = height;
+}
+
+static void	if_not_game(t_game *game)
+{
+	if (!game)
+	{
+		free(game);
+		ft_error("Error\nCannot initialize a game");
+	}
+}
+
+int32_t	main(int argc, char **argv)
+{
+	mlx_t		*mlx;
+	int			src;
+	t_game		*game;
+
+	if (argc != 2)
+		return (-1);
+	game = malloc(sizeof(t_game));
+	if_not_game(game);
+	game = game_init(game);
+	load_pngs(game);
+	get_map_size(argv, game);
+	src = open(argv[1], O_RDONLY);
+	mlx = mlx_init(128 * game->width, 128 * game->height, "Test", false);
 	if (!mlx)
-		ft_error("test");
-
-	/* Do stuff */
-
-	// Try to load the file
-	mlx_texture_t* texture = mlx_load_png(PATH_GRASS);
-	if(!texture)
-		ft_error("test");
-	// Convert texture to a displayable image
-	mlx_image_t* img1 = mlx_texture_to_image(mlx, texture);
-	if(!img1)
-		ft_error("test");
-	if (mlx_image_to_window(mlx, img1, 0, 0) < 0)
-		ft_error("test");
-
-	// Create and display the image.
-	mlx_image_t* img = mlx_new_image(mlx, 256, 256);
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-		ft_error("test");
-
-	// Even after the image is being displayed, we can still modify the buffer.
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
-
-	// Register a hook and pass mlx as an optional param.
-	// NOTE: Do this before calling mlx_loop!
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-
-	// Remove images and clean texture
-	mlx_delete_image(mlx, img1);
-	mlx_delete_texture(texture);
-
-	mlx_terminate(mlx);
+		ft_error("Error\nCannot initialize a map");
+	else
+		game->mlx = mlx;
+	draw_ber(src, game);
+	error_check(game);
+	mlx_hooks(game);
+	close(src);
 	return (EXIT_SUCCESS);
 }
