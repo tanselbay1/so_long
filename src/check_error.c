@@ -1,0 +1,79 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_error.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 11:53:06 by tbayrakt          #+#    #+#             */
+/*   Updated: 2024/08/17 11:53:47 by tbayrakt         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../headers/so_long.h"
+
+int	is_in_list(int x, int y, t_tile *grass_list)
+{
+	t_tile	*ptr;
+
+	ptr = grass_list;
+	if (!ptr)
+		return (0);
+	while (ptr)
+	{
+		if (ptr->x == x && ptr->y == y)
+			return (1);
+		ptr = ptr->next;
+	}
+	return (0);
+}
+
+t_tile	*find_tile_in_list(int x, int y, t_tile *list)
+{
+	t_tile	*ptr;
+
+	ptr = list;
+	if (!ptr)
+		return (0);
+	while (ptr)
+	{
+		if (ptr->x == x && ptr->y == y)
+			return (ptr);
+		ptr = ptr->next;
+	}
+	return (0);
+}
+
+static int	is_p_c_e_in_one_map(t_game *game)
+{
+	t_player	*player;
+	int			p;
+	int			f;
+	int			h;
+	t_tile		*foodlist_ptr;
+
+	game->grass_list = malloc(sizeof(t_tile));
+	game->grass_list->x = 0;
+	game->grass_list->y = 0;
+	game->grass_list->next = 0;
+	player = game->player;
+	flood_fill(player->x, player->y, game);
+	p = is_in_list(player->x, player->y, game->grass_list);
+	foodlist_ptr = game->food_list;
+	while (foodlist_ptr)
+	{
+		f = is_in_list(foodlist_ptr->x, foodlist_ptr->y, game->grass_list);
+		foodlist_ptr = foodlist_ptr->next;
+	}
+	h = is_in_list(game->house->x, game->house->y, game->grass_list);
+	if (p + f + h != 3)
+		ft_error("Error\nPlayer, Food, House should be connected on the map!");
+	return (0);
+}
+
+void	error_check(t_game *game)
+{
+	is_p_c_e_in_one_map(game);
+	if (game->player_cnt * game->house_cnt != 1 || game->food_cnt < 1)
+		ft_error("Error\n1 Player, 1<= Foods, 1 House must be on the map!");
+}
