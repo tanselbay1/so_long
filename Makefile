@@ -1,33 +1,26 @@
-NAME	:= so_long
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./MLX42
+NAME = so_long
+CC = gcc
+SRC = $(wildcard *.c src/*.c get_next_line/*.c libft/*.c printf/*.c)
+OBJ = $(SRC:.c=.o)
+RM = rm -rf
+CC_FLAGS = -Wall -Wextra -Werror
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c") \
-           $(shell find ./get_next_line -iname "*.c") \
-           $(shell find ./libft -iname "*.c") \
-           $(shell find ./printf -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
-
-all: libmlx $(NAME)
-
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+all : $(NAME)
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	$(CC)  $(CC_FLAGS) -Imlx -c $< -o $@
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+$(NAME): $(OBJ)
+	@cd MLX42 && cmake -B build && cmake --build build -j4
+	@$(CC) $(OBJ) ./MLX42/build/libmlx42.a -Iinclude -lglfw -g -o $(NAME)
 
-clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+clean: 
+	@$(RM) $(OBJ)
+	@$(RM) ./MLX42/build
 
-fclean: clean
-	@rm -rf $(NAME)
+fclean:
+	@$(RM) $(OBJ)
+	@$(RM) $(NAME)
+	@$(RM) ./MLX42/build
 
-re: clean all
-
-.PHONY: all, clean, fclean, re, libmlx
+re: fclean all

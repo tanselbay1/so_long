@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:53:06 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/17 11:53:47 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:37:36 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	is_p_c_e_in_one_map(t_game *game)
 	int			p;
 	int			f;
 	int			h;
-	t_tile		*foodlist_ptr;
+	t_tile		*chestlist_ptr;
 
 	game->grass_list = malloc(sizeof(t_tile));
 	game->grass_list->x = 0;
@@ -59,21 +59,21 @@ static int	is_p_c_e_in_one_map(t_game *game)
 	player = game->player;
 	flood_fill(player->x, player->y, game);
 	p = is_in_list(player->x, player->y, game->grass_list);
-	foodlist_ptr = game->food_list;
-	while (foodlist_ptr)
+	chestlist_ptr = game->chest_list;
+	while (chestlist_ptr)
 	{
-		f = is_in_list(foodlist_ptr->x, foodlist_ptr->y, game->grass_list);
-		foodlist_ptr = foodlist_ptr->next;
+		f = is_in_list(chestlist_ptr->x, chestlist_ptr->y, game->grass_list);
+		chestlist_ptr = chestlist_ptr->next;
 	}
-	h = is_in_list(game->house->x, game->house->y, game->grass_list);
+	h = is_in_list(game->exit->x, game->exit->y, game->grass_list);
 	if (p + f + h != 3)
-		ft_error("Error\nPlayer, Food, House should be connected on the map!");
+		ft_error("Error\nPlayer, Chest, Exit should be connected on the map!");
 	return (0);
 }
 
 void	error_check(t_game *game)
 {
 	is_p_c_e_in_one_map(game);
-	if (game->player_cnt * game->house_cnt != 1 || game->food_cnt < 1)
-		ft_error("Error\n1 Player, 1<= Foods, 1 House must be on the map!");
+	if (game->player_cnt * game->exit_cnt != 1 || game->chest_cnt < 1)
+		ft_error("Error\n1 Player, 1 Chest, 1 Exit must be on the map!");
 }

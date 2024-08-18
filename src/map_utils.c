@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:38:48 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/17 10:39:19 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/18 12:09:15 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_tile	*ft_map_lstlast(t_tile *lst)
 
 void	tile_to_map_list(char c, t_tile **list, int x, int y)
 {
-	t_tile			*tile;
+	t_tile	*tile;
 
 	tile = ft_map_lstnew(c, 0, 0);
 	if (c == '1')
@@ -70,7 +70,7 @@ void	tile_to_map_list(char c, t_tile **list, int x, int y)
 
 int	img_to_window(mlx_t *mlx, mlx_texture_t *png, int x, int y)
 {
-	mlx_image_t		*img;
+	mlx_image_t	*img;
 
 	img = mlx_texture_to_image(mlx, png);
 	if (!img)

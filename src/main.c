@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:46:11 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/17 11:37:14 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/18 12:05:51 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_error(char *str)
 {
 	ft_putendl_fd(str, 1);
-	exit (0);
+	exit(0);
 }
 
 int	iswall(t_tile *map, int x, int y)
@@ -43,12 +43,10 @@ static void	get_map_size(char **argv, t_game *game)
 {
 	char	*gnl;
 	int		len;
-	char	*whole_string;
 	int		src;
 	int		height;
 
 	height = 0;
-	whole_string = "";
 	src = open(argv[1], O_RDONLY);
 	gnl = get_next_line(src);
 	if (!gnl)
@@ -78,9 +76,9 @@ static void	if_not_game(t_game *game)
 
 int32_t	main(int argc, char **argv)
 {
-	mlx_t		*mlx;
-	int			src;
-	t_game		*game;
+	mlx_t	*mlx;
+	int		src;
+	t_game	*game;
 
 	if (argc != 2)
 		return (-1);
@@ -90,7 +88,7 @@ int32_t	main(int argc, char **argv)
 	load_pngs(game);
 	get_map_size(argv, game);
 	src = open(argv[1], O_RDONLY);
-	mlx = mlx_init(128 * game->width, 128 * game->height, "Test", false);
+	mlx = mlx_init(64 * game->width, 64 * game->height, "Test", false);
 	if (!mlx)
 		ft_error("Error\nCannot initialize a map");
 	else

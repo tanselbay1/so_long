@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:07:45 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/17 10:08:24 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/18 12:07:19 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,11 @@ void	map_to_window(char *gnl, t_game *game, int src, int len)
 
 void	draw_ber(int src, t_game *game)
 {
-	char			*gnl;
-	int				next_x;
-	int				next_y;
-	int				len;
-	int				i;
+	char	*gnl;
+	int		len;
 
 	gnl = first_gnl(src);
 	len = ft_strlen(gnl) - 1;
-	next_x = 0;
-	next_y = 0;
 	game->map = ft_map_lstnew(*gnl, 0, 0);
-	i = 0;
 	map_to_window(gnl, game, src, len);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/17 10:27:32 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/17 10:28:09 by tbayrakt         ###   ########.fr       */
+/*   Created: 2024/08/18 12:08:26 by tbayrakt          #+#    #+#             */
+/*   Updated: 2024/08/18 12:08:30 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	flood_fill(int x, int y, t_game *game)
 	if (is_in_list(x, y, game->grass_list))
 		return ;
 	put_in_grass_list(x, y, game->grass_list);
-	flood_fill(x - 128, y, game);
-	flood_fill(x + 128, y, game);
-	flood_fill(x, y - 128, game);
-	flood_fill(x, y + 128, game);
+	flood_fill(x - 64, y, game);
+	flood_fill(x + 64, y, game);
+	flood_fill(x, y - 64, game);
+	flood_fill(x, y + 64, game);
 }

@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:43:56 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/17 10:44:13 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/18 14:48:53 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	my_keyhook(mlx_key_data_t keydata, void *param)
 {
-	t_game		*game;
+	t_game	*game;
 
 	game = param;
 	if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
@@ -36,16 +36,16 @@ static void	finish_game(void *param)
 {
 	t_game		*game;
 	t_player	*player;
-	t_object	*house;
+	t_object	*final_exit;
 
 	game = param;
 	player = game->player;
-	house = game->house;
-	if (player->x == house->x && player->y == house->y)
+	final_exit = game->exit;
+	if (player->x == final_exit->x && player->y == final_exit->y)
 	{
-		if (player->collect_cnt >= game->food_cnt)
+		if (player->collect_cnt >= game->chest_cnt)
 		{
-			ft_printf("SHIBA ESCAPED WITH THE FOOD!");
+			ft_printf("ARCHER ESCAPED THE FOREST!");
 			exit(0);
 		}
 	}
