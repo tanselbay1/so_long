@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:43:56 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/18 14:48:53 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:17:37 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,23 @@ void	mlx_hooks(t_game *game)
 	mlx_key_hook(mlx, &my_keyhook, game);
 	mlx_loop_hook(mlx, &finish_game, game);
 	mlx_loop(mlx);
+}
+
+int	ft_strcmp(const char *str1, const char *str2)
+{
+	while (*str1 && (*str1 == *str2))
+	{
+		str1++;
+		str2++;
+	}
+	return (*(unsigned char *)str1 - *(unsigned char *)str2);
+}
+
+bool	is_ber_extension(const char *filename)
+{
+	const char	*dot = ft_strrchr(filename, '.');
+
+	if (!dot || dot == filename)
+		return (false);
+	return (ft_strcmp(dot, ".ber") == 0);
 }

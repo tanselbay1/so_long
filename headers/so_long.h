@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:48:35 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/19 15:42:07 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/19 16:17:18 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,7 @@ void				error_check(t_game *game);
 
 // MLX42_HOOKS.C
 void				mlx_hooks(t_game *game);
+int					ft_strcmp(const char *str1, const char *str2);
+bool				is_ber_extension(const char *filename);
 
 #endif
