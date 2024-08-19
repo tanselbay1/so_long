@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:46:11 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/18 12:05:51 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:48:34 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,25 @@ void	ft_error(char *str)
 {
 	ft_putendl_fd(str, 1);
 	exit(0);
+}
+
+int	ft_strcmp(const char *str1, const char *str2)
+{
+	while (*str1 && (*str1 == *str2))
+	{
+		str1++;
+		str2++;
+	}
+	return (*(unsigned char *)str1 - *(unsigned char *)str2);
+}
+
+bool	is_ber_extension(const char *filename)
+{
+	const char	*dot = ft_strrchr(filename, '.');
+
+	if (!dot || dot == filename)
+		return (false);
+	return (ft_strcmp(dot, ".ber") == 0);
 }
 
 int	iswall(t_tile *map, int x, int y)
@@ -82,6 +101,8 @@ int32_t	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (-1);
+	if (!is_ber_extension(argv[1]))
+		ft_error("Error\nFile extention is not .ber");
 	game = malloc(sizeof(t_game));
 	if_not_game(game);
 	game = game_init(game);

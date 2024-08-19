@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:48:35 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/18 14:41:27 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:42:07 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../printf/ft_printf.h"
 # include "MLX42.h"
 # include <fcntl.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
