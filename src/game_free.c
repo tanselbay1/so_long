@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:53:43 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/18 12:10:42 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:05:56 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,15 @@ void	free_list(t_tile *head)
 		head = head->next;
 		free(tmp);
 	}
+}
+
+void	clear_memory(t_game *map_data)
+{
+	free(map_data->map);
+	mlx_delete_texture(map_data->tree_png);
+	mlx_delete_texture(map_data->player_png);
+	mlx_delete_texture(map_data->exit_png);
+	mlx_delete_texture(map_data->grass_png);
+	mlx_delete_texture(map_data->chest_png);
+	mlx_terminate(map_data->mlx);
 }
