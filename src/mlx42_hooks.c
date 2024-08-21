@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:43:56 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/20 11:57:26 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:10:22 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void	my_keyhook(mlx_key_data_t keydata, void *param)
 		move_right(game);
 	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		clear_memory(game);
 		ft_printf("GAME SHUT DOWN!");
+		clear_memory(game);
 		exit(0);
 	}
 }

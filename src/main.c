@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 16:46:11 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/19 16:16:10 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:03:00 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int32_t	main(int argc, char **argv)
 	draw_ber(src, game);
 	error_check(game);
 	mlx_hooks(game);
+	clear_memory(game);
 	close(src);
 	return (EXIT_SUCCESS);
 }
