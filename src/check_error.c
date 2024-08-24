@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 11:53:06 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/18 14:37:36 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/24 13:13:46 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int	is_p_c_e_in_one_map(t_game *game)
 {
 	t_player	*player;
 	int			p;
-	int			f;
-	int			h;
+	int			c;
+	int			e;
 	t_tile		*chestlist_ptr;
 
 	game->grass_list = malloc(sizeof(t_tile));
@@ -62,11 +62,13 @@ static int	is_p_c_e_in_one_map(t_game *game)
 	chestlist_ptr = game->chest_list;
 	while (chestlist_ptr)
 	{
-		f = is_in_list(chestlist_ptr->x, chestlist_ptr->y, game->grass_list);
+		c = is_in_list(chestlist_ptr->x, chestlist_ptr->y, game->grass_list);
+		if (c == 0)
+			break ;
 		chestlist_ptr = chestlist_ptr->next;
 	}
-	h = is_in_list(game->exit->x, game->exit->y, game->grass_list);
-	if (p + f + h != 3)
+	e = is_in_list(game->exit->x, game->exit->y, game->grass_list);
+	if (p + c + e != 3)
 		ft_error("Error\nPlayer, Chest, Exit should be connected on the map!");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tbayrakt <tbayrakt@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 10:43:56 by tbayrakt          #+#    #+#             */
-/*   Updated: 2024/08/21 16:10:22 by tbayrakt         ###   ########.fr       */
+/*   Updated: 2024/08/23 09:52:15 by tbayrakt         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	finish_game(void *param)
 		if (player->collect_cnt >= game->chest_cnt)
 		{
 			ft_printf("ARCHER ESCAPED THE FOREST!");
-			clear_memory(param);
+			clear_memory(game);
 			exit(0);
 		}
 	}
